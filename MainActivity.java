@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,10 +25,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    CRCDatabaseHelper mDatabaseHelper;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private int count = 1;
+    private EditText className, res1, res2, res3, collab1, collab2, collab3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        className = (EditText)findViewById(R.id.classNameText);
+        res1 = (EditText)findViewById(R.id.resp1Text);
+        res2 = (EditText)findViewById(R.id.resp2Text);
+        res3 = (EditText)findViewById(R.id.resp3Text);
+        collab1=(EditText)findViewById(R.id.collab1Text);
+        collab2=(EditText)findViewById(R.id.collab2Text);
+        collab3=(EditText)findViewById(R.id.collab3Text);
 
     }
 
@@ -62,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_deleteCard:
                 deleteCard();
                 return true;
+            case R.id.action_saveCard:
+                saveCard();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -77,23 +92,19 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewPager);
     }
 
+    private void saveCard(){
+        
+    }
+
     private void setupViewPager(ViewPager viewPager) {
-
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        //LayoutInflater inflator = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        //count = 10;
         for (int i=0; i<count; i++){
-
             crcCard fView = new crcCard();
-            //View view = fView.getView();
-
-            //TextView txtTabItemNumber = (TextView)view.findViewById(R.id.txtTabItemNumber);
-            //txtTabItemNumber.setText("TAB " + i);
-            adapter.addFrag(fView,"TAB " + i);
+            adapter.addFrag(fView,"CLASS " + i);
         }
         viewPager.setAdapter(adapter);
     }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
