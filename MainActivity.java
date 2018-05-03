@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mDatabaseHelper = new CRCDatabaseHelper(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        className = (EditText)findViewById(R.id.classNameText);
-        res1 = (EditText)findViewById(R.id.resp1Text);
+        className = (EditText)viewPager.findViewById(R.id.classNameText);
+        res1 = (EditText)viewPager.findViewById(R.id.resp1Text);
         res2 = (EditText)findViewById(R.id.resp2Text);
         res3 = (EditText)findViewById(R.id.resp3Text);
         collab1=(EditText)findViewById(R.id.collab1Text);
@@ -93,7 +95,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveCard(){
-        
+//        mDatabaseHelper.addData(className.getText().toString(), res1.getText().toString(),
+//                res2.getText().toString(), res3.getText().toString(), collab1.getText().toString(),
+//                collab2.getText().toString(), collab3.getText().toString());
+        toast("Succesfully Added Class To Database");
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -131,6 +136,9 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+    public void toast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
 

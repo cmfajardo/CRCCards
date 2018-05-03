@@ -14,16 +14,17 @@ package edu.utep.cs.cs4330.crccards;
 
 public class CRCDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = "DatabaseHelper";
+    private static final String TAG = "CRCDatabaseHelper";
 
     private static final String TABLE_NAME = "CRC_table";
-    private static final String COL1 = "Class Name";
-    private static final String COL2 = "Res1";
-    private static final String COL3 = "Res2";
-    private static final String COL4 = "Res3";
-    private static final String COL5 = "Collab1";
-    private static final String COL6 = "Collab2";
-    private static final String COL7 = "Collab3";
+    private static final String COL1 = "ID";
+    private static final String COL2 = "Class Name";
+    private static final String COL3 = "Res1";
+    private static final String COL4 = "Res2";
+    private static final String COL5 = "Res3";
+    private static final String COL6 = "Collab1";
+    private static final String COL7 = "Collab2";
+    private static final String COL8 = "Collab3";
 
 
     public CRCDatabaseHelper(Context context) {
@@ -33,7 +34,7 @@ public class CRCDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL2 + COL3 + COL4 + COL5 + COL6 + COL7 +" TEXT)";
+                + COL2 + "TEXT" + COL3 + "TEXT" + COL4 + "TEXT"+ COL5 + "TEXT"+ COL6 + "TEXT"+ COL7 +" TEXT)";
         db.execSQL(createTable);
     }
     @Override
@@ -45,19 +46,19 @@ public class CRCDatabaseHelper extends SQLiteOpenHelper {
     public boolean addData(String className, String res1, String res2, String res3, String collab1, String collab2, String collab3) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL1, className);
-        contentValues.put(COL2, res1);
-        contentValues.put(COL3, res2);
-        contentValues.put(COL4, res3);
-        contentValues.put(COL5, collab1);
-        contentValues.put(COL6, collab2);
-        contentValues.put(COL7, collab3);
+        contentValues.put(COL2, className);
+        contentValues.put(COL3, res1);
+        contentValues.put(COL4, res2);
+        contentValues.put(COL5, res3);
+        contentValues.put(COL6, collab1);
+        contentValues.put(COL7, collab2);
+        contentValues.put(COL8, collab3);
 
         Log.d(TAG, "addData: Adding " + className + " to " + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
 
-        //if date as inserted incorrectly it will return -1
+        //if data is inserted incorrectly it will return -1
         if (result == -1) {
             return false;
         } else {
@@ -103,14 +104,14 @@ public class CRCDatabaseHelper extends SQLiteOpenHelper {
     public void updateName(String newClassName, String res1, String res2, String res3,
                            String collab1, String collab2, String collab3, String oldClassName){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE " + TABLE_NAME + " SET " + COL1 +
-                " = '" + newClassName + "' WHERE " + COL1 + " = '" + oldClassName + "'" +
-                " UPDATE " + COL2 + " = '" + res1 + "'" +
-                " UPDATE " + COL3 + " = '" + res2 + "'" +
-                " UPDATE " + COL4 + " = '" + res3 + "'" +
-                " UPDATE " + COL5 + " = '" + collab1 + "'" +
-                " UPDATE " + COL6 + " = '" + collab2 + "'" +
-                " UPDATE " + COL7 + " = '" + collab3 + "'" ;
+        String query = "UPDATE " + TABLE_NAME + " SET " + COL2 +
+                " = '" + newClassName + "' WHERE " + COL2 + " = '" + oldClassName + "'" +
+                " UPDATE " + COL3 + " = '" + res1 + "'" +
+                " UPDATE " + COL4 + " = '" + res2 + "'" +
+                " UPDATE " + COL5 + " = '" + res3 + "'" +
+                " UPDATE " + COL6 + " = '" + collab1 + "'" +
+                " UPDATE " + COL7 + " = '" + collab2 + "'" +
+                " UPDATE " + COL8 + " = '" + collab3 + "'" ;
 
         Log.d(TAG, "updateName: query: " + query);
         Log.d(TAG, "updateName: Setting name to " + newClassName);
@@ -124,7 +125,7 @@ public class CRCDatabaseHelper extends SQLiteOpenHelper {
     public void deleteName(String className){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME + " WHERE "
-                + COL1 + " = '" + className + "'";
+                + COL2 + " = '" + className + "'";
         Log.d(TAG, "deleteName: query: " + query);
         Log.d(TAG, "deleteName: Deleting " + className + " from database.");
         db.execSQL(query);
