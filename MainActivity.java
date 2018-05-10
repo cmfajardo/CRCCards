@@ -1,9 +1,6 @@
 package edu.utep.cs.cs4330.crccards;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,14 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -84,23 +77,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //add new card to the end of the tab layout
     private void newCard(){
         count++;
         setupViewPager(viewPager);
     }
 
+    //remove the last card from the tab layout
     private void deleteCard(){
         count--;
         setupViewPager(viewPager);
     }
 
+    //add card to database
     private void saveCard(){
 //        mDatabaseHelper.addData(className.getText().toString(), res1.getText().toString(),
 //                res2.getText().toString(), res3.getText().toString(), collab1.getText().toString(),
 //                collab2.getText().toString(), collab3.getText().toString());
-        toast("Succesfully Added Class To Database");
+        toast("not implmented Class To Database");
     }
 
+    //create a new fragment and repaint the tab layout
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         for (int i=0; i<count; i++){
@@ -111,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
+        //lists for the tab layout and fragment layout
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
